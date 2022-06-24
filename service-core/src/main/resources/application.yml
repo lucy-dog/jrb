@@ -1,0 +1,38 @@
+server:
+  port: 8110 # 服务端口
+
+spring:
+  profiles:
+    active: dev # 环境设置 开发环境
+  application:
+    name: service-core # 服务名 后续集群微服务的当前该服务的名字
+  datasource: # mysql数据库连接
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 数据库名，根据自己的跟换
+    url: jdbc:mysql://localhost:3306/xxxxx?serverTimezone=GMT%2B8&characterEncoding=utf-8
+    username: xxxx #账号
+    password: xxxx #密码
+  #nacos
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 # nacos服务地址
+  #redis
+  redis:
+    host: xxxx #填写远程主机名
+    port: 6379
+    database: 0
+    password: xxx #redis密码默认为空
+    timeout: 5000ms #最大等待时间，超时则抛出异常，否则请求一直等待
+    lettuce:
+      pool:
+        max-active: 20  #最大连接数，负值表示没有限制，默认8
+        max-wait: -1    #最大阻塞等待时间，负值表示没限制，默认-1
+        max-idle: 8     #最大空闲连接，默认8
+        min-idle: 0     #最小空闲连接，默认0
+
+mybatis-plus: #mybatis
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:com/jsw/jrb/core/mapper/xml/*.xml
